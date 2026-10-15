@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 380px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin: 0;
+    }
+    h3 {
+      margin: 0 0 15px 0;
+      font-size: 20px;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .platform-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .content-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      color: #333;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .log-container {
+      max-height: 200px;
+      overflow-y: auto;
+      background: rgba(0,0,0,0.6);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 15px;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+    }
+    .log-item {
+      margin: 3px 0;
+      padding: 3px 5px;
+      border-radius: 3px;
+    }
+    .log-success { color: #4caf50; }
+    .log-error { color: #f44336; }
+    .log-warn { color: #ff9800; }
+    .log-cmd { color: #2196f3; }
+    .log-info { color: #ddd; }
+    button {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    .status {
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+    .latest-cmd-box {
+      background: rgba(255,255,255,0.95);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .latest-cmd-box strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 6px;
+    }
+    #latest-cmd-content {
+      color: #555;
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      background: #f8f9fa;
+      padding: 8px;
+      border-radius: 4px;
+      border-left: 3px solid #2196f3;
+    }
+    .video-title-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .video-title-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #667eea;
+    }
+    .time-progress {
+      background: rgba(255,255,255,0.9);
+      border-radius: 6px;
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #555;
+    }
+    .comments-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      color: #333;
+      max-height: 180px;
+      overflow-y: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .comments-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #667eea;
+    }
+    .comment-item {
+      background: #f8f9fa;
+      padding: 8px;
+      margin-bottom: 6px;
+      border-radius: 4px;
+      border-left: 3px solid #667eea;
+    }
+    .comment-author {
+      font-weight: 600;
+      color: #495057;
+      font-size: 12px;
+    }
+    .comment-likes {
+      color: #ff4081;
+      font-size: 11px;
+      float: right;
+    }
+    .comment-text {
+      color: #666;
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .element-status-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .element-status-box strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .element-status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .element-item {
+      background: #f8f9fa;
+      padding: 6px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .element-item .label {
+      color: #555;
+      font-weight: 500;
+    }
+    .element-item .status {
+      font-weight: 600;
+    }
+    .status-ok {
+      color: #28a745;
+    }
+    .status-fail {
+      color: #dc3545;
+    }
+    .status-unknown {
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <div class="platform-badge">▶️ YouTube Platform</div>
+  <h3>YouTube 智能助手</h3>
+  
+  <div class="status" id="status">正在连接...</div>
+  
+  <!-- 当前视频标题和时间进度 -->
+  <div class="video-title-box">
+    <strong>📹 当前视频标题</strong>
+    <div id="video-title">等待检测视频...</div>
+    <div class="time-progress" id="time-progress">时间: 0:00 / 0:00</div>
+  </div>
+  
+  <!-- 元素检测状态 -->
+  <div class="element-status-box" id="element-status-box">
+    <strong>🔍 元素检测状态</strong>
+    <div class="element-status-grid">
+      <div class="element-item">
+        <span class="label">关注按钮</span>
+        <span class="status status-unknown" id="status-subscribe">-</span>
+      </div>
+      <div class="element-item">
+        <span class="label">点赞按钮</span>
+        <span class="status status-unknown" id="status-like">-</span>
+      </div>
+      <div class="element-item">
+        <span class="label">评论输入框</span>
+        <span class="status status-unknown" id="status-comment-input">-</span>
+      </div>
+      <div class="element-item">
+        <span class="label">下一个视频</span>
+        <span class="status status-unknown" id="status-next">-</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 最新指令 -->
+  <div class="latest-cmd-box" id="latest-cmd-box">
+    <strong>🤖 最新指令:</strong>
+    <div id="latest-cmd-content">-</div>
+  </div>
+  
+  <!-- 热门评论 -->
+  <div class="comments-box" id="comments-box" style="display:none;">
+    <strong>🔥 热门评论 (Top 3)</strong>
+    <div id="comments-list"></div>
+  </div>
+  
+  <button id="btn-capture">🎬 捕获当前视频</button>
+  <button id="btn-test">🔗 测试 Python 连接</button>
+  <button id="btn-test-command" style="background: #ffc107; color: #333;">🧪 测试接收指令</button>
+  
+  <div class="content-box">
+    <strong>📊 运行日志</strong>
+    <div class="log-container" id="log-container"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

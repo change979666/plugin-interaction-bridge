@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "TikTok 智能助手",
+  "version": "2.0",
+  "description": "TikTok 自动化助手 - 独立版本 (端口 8099)",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.tiktok.com/*",
+    "http://localhost:8099/*"
+  ],
+  "action": {
+    "default_title": "TikTok 智能助手"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src http://localhost:8099"
+  }
+}
