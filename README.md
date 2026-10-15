@@ -41,7 +41,8 @@ plugin_interaction_demo/
 ## Configuration
 
 Edit `python_app/config.json` and set your own API credentials. The committed file ships
-with placeholder values - the keys have been removed:
+with placeholder values (`YOUR_API_KEY_HERE`) - the real keys have been removed and are **not**
+present in this repository:
 
 ```json
 {
@@ -50,14 +51,35 @@ with placeholder values - the keys have been removed:
 }
 ```
 
+You can also enter the keys directly in the Python GUI: the AI config section has input
+fields per profile (`ai_api_key_vars`); saving writes them back into `config.json`. No
+environment variables are required - `python_app/ai_engine.py` starts with `self.api_key = ""`
+and only uses whatever key the GUI / `config.json` provides.
+
+## Requirements
+
+- **Windows** (the desktop client uses `native_input.py` with Windows `ctypes`/`SendInput`).
+- Python 3.x. The only third-party dependency is the [`openai`](https://pypi.org/project/openai/) package; everything else (Tkinter, `http.server`, `ctypes`) is in the standard library:
+  ```
+  pip install openai
+  ```
+
 ## Run
 
-1. Install Python dependencies and start the client (`一键启动.bat` or `python main.py`).
-2. Load the unpacked extensions under `extension/youtube` and `extension/tiktok` in Chrome.
+1. Install the dependency above and start the client (`一键启动.bat` or `python -m python_app.main` from the `plugin_interaction_demo/` directory).
+2. Load the unpacked extensions under `extension/youtube` and `extension/tiktok` in Chrome (chrome://extensions -> Developer mode -> Load unpacked).
 3. Open a YouTube / TikTok tab, open the extension popup, and use the client UI to drive it.
 
+## Extension permissions (as declared in each manifest.json)
+
+- **YouTube extension**: permissions `scripting`, `activeTab`, `tabs`; host permissions `https://www.youtube.com/*` and `http://localhost:8088/*`.
+- **TikTok extension**: permissions `activeTab`, `tabs`, `scripting`, `storage`; host permissions `https://www.tiktok.com/*` and `http://localhost:8099/*`.
+- Both are Manifest V3 with a background service worker; they talk only to the platform pages and the local loopback ports above.
+
 > This project talks only to `127.0.0.1` and runs locally. It is intended for personal
-> automation; respect each platform's Terms of Service.
+> automation; automated liking / commenting / following on YouTube or TikTok may violate
+> each platform's Terms of Service. Use at your own risk and do not run it against accounts
+> you are not authorized to automate.
 
 ## License & Attribution / 许可与来源
 
