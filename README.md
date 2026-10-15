@@ -58,3 +58,13 @@ with placeholder values - the keys have been removed:
 
 > This project talks only to `127.0.0.1` and runs locally. It is intended for personal
 > automation; respect each platform's Terms of Service.
+
+## License & Attribution / 许可与来源
+
+Original project code authored for this repository is released under the MIT License; see [LICENSE](./LICENSE).
+
+When reusing or redistributing a substantial portion, retain the LICENSE and its copyright notice. The copyright notice includes this original source URL: https://github.com/change979666/plugin-interaction-bridge. Please keep the source link visible in your redistributed source or project documentation.
+
+This license applies only to original material that the repository maintainer has the right to license. Third-party libraries, vendor code, platform SDKs, trademarks, screenshots, icons, fonts, and other external assets remain subject to their respective licenses and terms. Review those terms before reuse.
+
+**Project status:** personal/archived project, shared as-is. Maintenance, compatibility, and production readiness are not guaranteed.
